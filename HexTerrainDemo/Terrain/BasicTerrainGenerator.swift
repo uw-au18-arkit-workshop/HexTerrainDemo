@@ -10,5 +10,7 @@ import Foundation
 
 class BasicTerrainGenerator: TerrainGenerator {
 
-	// Non-procedural terrain generator
+	// Creates a Terrain object with every tile set to the same type & height
+	// (Non-procedural)
+	// @TODO
 }

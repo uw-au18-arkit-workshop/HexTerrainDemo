@@ -12,5 +12,5 @@ import Foundation
 protocol TerrainGenerator {
 
 	// Base class for all terrain generators
-
+	// @TODO
 }
