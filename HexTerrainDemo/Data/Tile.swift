@@ -12,9 +12,14 @@ import Foundation
 struct Tile {
 
 	// Data for each tile
+	var tileType: TileType
+	var height: Double
 
 }
 
 
-
+// The various things a tile can be
+enum TileType {
+	case Grass
+}
 
