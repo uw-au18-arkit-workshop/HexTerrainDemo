@@ -13,6 +13,12 @@
 		D78D605C219FB7DD00B995B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D78D605A219FB7DD00B995B8 /* Main.storyboard */; };
 		D78D605E219FB7DE00B995B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D605D219FB7DE00B995B8 /* Assets.xcassets */; };
 		D78D6061219FB7DE00B995B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D78D605F219FB7DE00B995B8 /* LaunchScreen.storyboard */; };
+		D78D6073219FC7B500B995B8 /* WorldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D6072219FC7B500B995B8 /* WorldManager.swift */; };
+		D78D6075219FC7CF00B995B8 /* TerrainGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D6074219FC7CF00B995B8 /* TerrainGenerator.swift */; };
+		D78D6077219FC8C100B995B8 /* BasicTerrainGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D6076219FC8C100B995B8 /* BasicTerrainGenerator.swift */; };
+		D78D607B21A002C900B995B8 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D607A21A002C900B995B8 /* Tile.swift */; };
+		D78D607D21A002E800B995B8 /* Terrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D607C21A002E800B995B8 /* Terrain.swift */; };
+		D78D607F21A0032200B995B8 /* TerrainMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D607E21A0032200B995B8 /* TerrainMesh.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		D78D605D219FB7DE00B995B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D78D6060219FB7DE00B995B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D78D6062219FB7DE00B995B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D78D6072219FC7B500B995B8 /* WorldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldManager.swift; sourceTree = "<group>"; };
+		D78D6074219FC7CF00B995B8 /* TerrainGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainGenerator.swift; sourceTree = "<group>"; };
+		D78D6076219FC8C100B995B8 /* BasicTerrainGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTerrainGenerator.swift; sourceTree = "<group>"; };
+		D78D607A21A002C900B995B8 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		D78D607C21A002E800B995B8 /* Terrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terrain.swift; sourceTree = "<group>"; };
+		D78D607E21A0032200B995B8 /* TerrainMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMesh.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,8 @@
 		D78D6053219FB7DD00B995B8 /* HexTerrainDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D78D6071219FC7A500B995B8 /* Data */,
+				D78D6070219FC77900B995B8 /* Terrain */,
 				D78D6054219FB7DD00B995B8 /* AppDelegate.swift */,
 				D78D6056219FB7DD00B995B8 /* art.scnassets */,
 				D78D6058219FB7DD00B995B8 /* ViewController.swift */,
@@ -65,6 +79,26 @@
 				D78D6062219FB7DE00B995B8 /* Info.plist */,
 			);
 			path = HexTerrainDemo;
+			sourceTree = "<group>";
+		};
+		D78D6070219FC77900B995B8 /* Terrain */ = {
+			isa = PBXGroup;
+			children = (
+				D78D607E21A0032200B995B8 /* TerrainMesh.swift */,
+				D78D607C21A002E800B995B8 /* Terrain.swift */,
+				D78D6074219FC7CF00B995B8 /* TerrainGenerator.swift */,
+				D78D6076219FC8C100B995B8 /* BasicTerrainGenerator.swift */,
+			);
+			path = Terrain;
+			sourceTree = "<group>";
+		};
+		D78D6071219FC7A500B995B8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D78D6072219FC7B500B995B8 /* WorldManager.swift */,
+				D78D607A21A002C900B995B8 /* Tile.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +173,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D78D6077219FC8C100B995B8 /* BasicTerrainGenerator.swift in Sources */,
+				D78D607D21A002E800B995B8 /* Terrain.swift in Sources */,
 				D78D6059219FB7DD00B995B8 /* ViewController.swift in Sources */,
+				D78D6075219FC7CF00B995B8 /* TerrainGenerator.swift in Sources */,
+				D78D607B21A002C900B995B8 /* Tile.swift in Sources */,
+				D78D6073219FC7B500B995B8 /* WorldManager.swift in Sources */,
+				D78D607F21A0032200B995B8 /* TerrainMesh.swift in Sources */,
 				D78D6055219FB7DD00B995B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
