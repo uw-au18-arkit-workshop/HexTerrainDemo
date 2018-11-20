@@ -47,6 +47,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 
+		// @FIXME: Remove "return" to allow processing of other types of nodes
 		guard anchor is ARPlaneAnchor else {
 			print("Found anchor, but not right one.")
 			return
@@ -85,12 +86,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
 
+		// @FIXME: Remove "return" to allow processing of other types of nodes
 		guard anchor is ARPlaneAnchor else {
 			print("Found anchor, but not the right one.")
 			return
 		}
 
-		// @TODO: Update plane geometry as new plane area is computed
+		// Grab our plane node
+		// @FIXME: Remove "return" to allow processing of other types of nodes
+		let potentialPlaneNodes = node.childNodes.filter({ $0.geometry as? ARSCNPlaneGeometry != nil })
+		guard let planeNode = potentialPlaneNodes.first else {
+			print("No plane nodes updated this cycle.")
+			return
+		}
+
+		guard let planeGeometry = planeNode.geometry as? ARSCNPlaneGeometry else {
+			print("Unable to convert updated geometry to valid ARSCNPlaneGeometry")
+			return
+		}
+
+		// Update the geometry!
+		planeGeometry.update(from: (anchor as! ARPlaneAnchor).geometry)
 
 	}
 
