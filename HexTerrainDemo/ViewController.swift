@@ -45,16 +45,52 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     // MARK: - ARSCNViewDelegate
 
-	func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 
-//		let label = SCNText(string: "Hello", extrusionDepth: 1.0)
-//		label.font = UIFont(name: "Helvetica", size: 20)
-//		label.containerFrame = CGRect(origin: .zero, size: CGSize(width: 200.0, height: 500.0))
-//		let textNode = SCNNode(geometry: label)
-//		textNode.scale = SCNVector3Make(0.2, 0.2, 0.2)
-//		return textNode
-//
-		return SCNNode()
+		guard anchor is ARPlaneAnchor else {
+			print("Found anchor, but not right one.")
+			return
+		}
+
+		// Throw text where it thinks the plane is
+		let textGeometry = SCNText(string: "Iss a plaane!", extrusionDepth: 3)
+		textGeometry.font = UIFont(name: "Futura", size: 75)
+
+		// Add text node and scale down to not be 1293867 meters tall
+		let textNode = SCNNode(geometry: textGeometry)
+		textNode.simdScale = float3(0.0005)
+
+		// Why not some plane geometry too
+		let planeGeometry = ARSCNPlaneGeometry(device: self.sceneView.device!)
+
+		guard planeGeometry != nil else {
+			fatalError("Unable to create plane geometry")
+		}
+
+		// Add material to make it visible
+		planeGeometry?.firstMaterial?.diffuse.contents = UIColor.blue.withAlphaComponent(0.5)
+
+		// Adds initial plane daata to the blank ARSCNPlaneGeometry
+		// @TODO: Move this to didUpate method
+		planeGeometry?.update(from: (anchor as! ARPlaneAnchor).geometry)
+
+		// Plane wrapper node
+		let planeGeometryNode = SCNNode(geometry: planeGeometry!)
+
+		// Finally, add text and plane to the scene
+		node.addChildNode(textNode)
+		node.addChildNode(planeGeometryNode)
+
+	}
+
+	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+
+		guard anchor is ARPlaneAnchor else {
+			print("Found anchor, but not the right one.")
+			return
+		}
+
+		// @TODO: Update plane geometry as new plane area is computed
 
 	}
 
@@ -69,15 +105,4 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
     }
-}
-
-
-
-
-extension CGSize {
-
-	static func /(lhs: CGSize, rhs: CGFloat) -> CGSize {
-		return CGSize(width: lhs.width / rhs, height: lhs.height / rhs)
-	}
-
 }
