@@ -23,38 +23,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
 		sceneView.debugOptions = [.showFeaturePoints, .showWireframe]
 
-
-		// Add custrom anchor for text label
-		// @TODO: Attach to plane
-//		var transformMatrix = matrix_identity_float4x4
-//		transformMatrix.columns.3.z = -0.2
-//		let anchor = ARAnchor(transform: transformMatrix)
-//
-//		sceneView.session.add(anchor: anchor)
-
-
-		NotificationCenter.default.post(name: "", object: nil, userInfo: <#T##[AnyHashable : Any]?#>)
-
-		// SpriteKit text and scene
-		let textLabel = SKLabelNode(text: "Hello, World!")
-		textLabel.color = UIColor.purple
-		textLabel.fontSize = 20
-		textLabel.lineBreakMode = .byWordWrapping
-		textLabel.horizontalAlignmentMode = .center
-		textLabel.position = CGPoint(x: sceneView.frame.midX / 2, y: 15)
-
-		// Background color box for text label
-		let textNode = SKSpriteNode(color: .purple, size: CGSize(width: sceneView.frame.maxX, height: 80))
-		textNode.color = textNode.color.withAlphaComponent(0.9)
-		textNode.addChild(textLabel)
-
-		let textScene = SKScene(size: CGSize(width: sceneView.frame.midX, height: sceneView.frame.midY))
-		textScene.scaleMode = .aspectFill
-		textScene.addChild(textNode)
-
-		sceneView.overlaySKScene = textScene
-
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
