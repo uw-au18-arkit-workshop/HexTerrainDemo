@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		54B3DC4F21A74D2E00295A6D /* TerrainTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B3DC4E21A74D2E00295A6D /* TerrainTile.swift */; };
 		54B3DC5121A74D7F00295A6D /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B3DC5021A74D7F00295A6D /* TileType.swift */; };
+		54B3DC5321A7533100295A6D /* TerrainStatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B3DC5221A7533100295A6D /* TerrainStatics.swift */; };
 		D78D6055219FB7DD00B995B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D6054219FB7DD00B995B8 /* AppDelegate.swift */; };
 		D78D6057219FB7DD00B995B8 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D6056219FB7DD00B995B8 /* art.scnassets */; };
 		D78D6059219FB7DD00B995B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D6058219FB7DD00B995B8 /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		54B3DC4E21A74D2E00295A6D /* TerrainTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTile.swift; sourceTree = "<group>"; };
 		54B3DC5021A74D7F00295A6D /* TileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileType.swift; sourceTree = "<group>"; };
+		54B3DC5221A7533100295A6D /* TerrainStatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainStatics.swift; sourceTree = "<group>"; };
 		D78D6051219FB7DD00B995B8 /* HexTerrainDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HexTerrainDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78D6054219FB7DD00B995B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D78D6056219FB7DD00B995B8 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				D78D6076219FC8C100B995B8 /* BasicTerrainGenerator.swift */,
 				54B3DC4E21A74D2E00295A6D /* TerrainTile.swift */,
 				54B3DC5021A74D7F00295A6D /* TileType.swift */,
+				54B3DC5221A7533100295A6D /* TerrainStatics.swift */,
 			);
 			path = Terrain;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				D78D6075219FC7CF00B995B8 /* TerrainGenerator.swift in Sources */,
 				D78D6073219FC7B500B995B8 /* WorldManager.swift in Sources */,
 				D78D608121A004BB00B995B8 /* Coordinates.swift in Sources */,
+				54B3DC5321A7533100295A6D /* TerrainStatics.swift in Sources */,
 				D78D607F21A0032200B995B8 /* TerrainMesh.swift in Sources */,
 				D78D6055219FB7DD00B995B8 /* AppDelegate.swift in Sources */,
 			);
