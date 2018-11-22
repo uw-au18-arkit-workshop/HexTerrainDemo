@@ -10,9 +10,8 @@ import Foundation
 
 
 struct Terrain {
-
 	// All tile objects representing our terrain
-	var data: [Tile]
+	var data: [TerrainTile]
 
 	// @TODO: Create functions for accessing data
 	// (Why not access directly?)

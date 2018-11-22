@@ -11,19 +11,16 @@ import Foundation
 
 
 protocol CoordinateSystem {
-
-	// Uncomment below when ready to implement
-//	func convertTo(system: CoordinateSystem)
-
+    
 }
 
 struct Cartesian: CoordinateSystem {
-
-
+    var x: Int
+    var y: Int
 }
 
 struct Axial: CoordinateSystem {
-
+    
 
 }
 
