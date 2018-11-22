@@ -12,38 +12,38 @@ import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
-    @IBOutlet var sceneView: ARSCNView!
+	@IBOutlet var sceneView: ARSCNView!
 
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Configures our SceneKit scene
-        sceneView.delegate = self
-        sceneView.showsStatistics = true
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		// Configures our SceneKit scene
+		sceneView.delegate = self
+		sceneView.showsStatistics = true
 		sceneView.debugOptions = [.showFeaturePoints, .showWireframe]
 
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		// Create a session configuration
+		let configuration = ARWorldTrackingConfiguration()
 		configuration.planeDetection = .horizontal
 
-        // Run the view's session
-        sceneView.session.run(configuration)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+		// Run the view's session
+		sceneView.session.run(configuration)
+	}
 
-        // Pause the view's session when view dissapears
-        sceneView.session.pause()
-    }
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
 
-    // MARK: - ARSCNViewDelegate
+		// Pause the view's session when view dissapears
+		sceneView.session.pause()
+	}
+
+	// MARK: - ARSCNViewDelegate
 
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 
@@ -110,15 +110,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 	}
 
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-    }
+	func session(_ session: ARSession, didFailWithError error: Error) {
+		// Present an error message to the user
+	}
+
+	func sessionWasInterrupted(_ session: ARSession) {
+		// Inform the user that the session has been interrupted, for example, by presenting an overlay
+	}
+
+	func sessionInterruptionEnded(_ session: ARSession) {
+		// Reset tracking and/or remove existing anchors if consistent tracking is required
+	}
 }
