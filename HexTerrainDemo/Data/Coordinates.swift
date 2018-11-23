@@ -39,18 +39,18 @@ struct Axial: CoordinateSystem {
 		return self
 	}
 	func toCartesian() -> Cartesian {
-		var retVal = Cartesian()
-		retVal.x = TerrainStatics.SCALE_FACTOR *
+		var cartesian = Cartesian()
+		cartesian.x = TerrainStatics.SCALE_FACTOR *
 			(CoordinateStatics.SQRT3 * Float(x) + CoordinateStatics.SQRT3 / 2.0 * Float(y))
-		retVal.y = TerrainStatics.SCALE_FACTOR * (3.0 / 2.0 * Float(y))
-		return retVal
+		cartesian.y = TerrainStatics.SCALE_FACTOR * (3.0 / 2.0 * Float(y))
+		return cartesian
 	}
 	func toCube() -> Cube {
-		var retVal = Cube()
-		retVal.x = x;
-		retVal.z = y;
-		retVal.y = -x - y;
-		return retVal;
+		var cube = Cube()
+		cube.x = x;
+		cube.z = y;
+		cube.y = -x - y;
+		return cube;
 	}
 	func toOffset() -> Offset {
 		return self.toCube().toOffset();
@@ -68,10 +68,10 @@ struct Cartesian: CoordinateSystem {
 	var y: Float = 0.0
 	
 	func toAxial() -> Axial {
-		var retVal = Axial()
-		retVal.x = Int(round(((CoordinateStatics.SQRT3 / 3.0 * x) - (1.0 / 3.0) * y) / TerrainStatics.SCALE_FACTOR))
-		retVal.y = Int(round((2.0 / 3.0 * y) / TerrainStatics.SCALE_FACTOR))
-		return retVal
+		var axial = Axial()
+		axial.x = Int(round(((CoordinateStatics.SQRT3 / 3.0 * x) - (1.0 / 3.0) * y) / TerrainStatics.SCALE_FACTOR))
+		axial.y = Int(round((2.0 / 3.0 * y) / TerrainStatics.SCALE_FACTOR))
+		return axial
 	}
 	func toCartesian() -> Cartesian {
 		return self
@@ -92,10 +92,10 @@ struct Cube: CoordinateSystem {
 	var z = 0
 	
 	func toAxial() -> Axial {
-		var retVal = Axial()
-		retVal.x = x
-		retVal.y = z
-		return retVal
+		var axial = Axial()
+		axial.x = x
+		axial.y = z
+		return axial
 	}
 	func toCartesian() -> Cartesian {
 		return self.toAxial().toCartesian()
@@ -104,10 +104,10 @@ struct Cube: CoordinateSystem {
 		return self
 	}
 	func toOffset() -> Offset {
-		var retVal = Offset()
-		retVal.x = x + Int(round(Float(z - (z & 1)) / 2.0))
-		retVal.y = z
-		return retVal
+		var offset = Offset()
+		offset.x = x + Int(round(Float(z - (z & 1)) / 2.0))
+		offset.y = z
+		return offset
 	}
 }
 
@@ -121,17 +121,17 @@ struct Offset: CoordinateSystem {
 		return self.toCube().toAxial()
 	}
 	func toCartesian() -> Cartesian {
-		var retVal = Cartesian()
-		retVal.x = TerrainStatics.SCALE_FACTOR * CoordinateStatics.SQRT3 * (Float(x) + 0.5 * Float((y & 1)))
-		retVal.y = TerrainStatics.SCALE_FACTOR * 3.0 / 2.0 * Float(y)
-		return retVal
+		var cartesian = Cartesian()
+		cartesian.x = TerrainStatics.SCALE_FACTOR * CoordinateStatics.SQRT3 * (Float(x) + 0.5 * Float((y & 1)))
+		cartesian.y = TerrainStatics.SCALE_FACTOR * 3.0 / 2.0 * Float(y)
+		return cartesian
 	}
 	func toCube() -> Cube {
-		var retVal = Cube()
-		retVal.x = x - Int(round(Float((y - (y & 1))) / 2.0))
-		retVal.z = y
-		retVal.y = -x - retVal.z
-		return retVal
+		var cube = Cube()
+		cube.x = x - Int(round(Float((y - (y & 1))) / 2.0))
+		cube.z = y
+		cube.y = -x - cube.z
+		return cube
 	}
 	func toOffset() -> Offset {
 		return self
