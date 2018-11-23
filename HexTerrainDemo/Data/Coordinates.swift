@@ -118,7 +118,7 @@ struct Cube: CoordinateSystem {
 struct Offset: CoordinateSystem {
 	var x = 0
 	var y = 0
-	
+
 	func toAxial() -> Axial {
 		return self.toCube().toAxial()
 	}
