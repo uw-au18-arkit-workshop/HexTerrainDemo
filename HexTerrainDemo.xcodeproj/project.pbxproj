@@ -10,6 +10,7 @@
 		54B3DC4F21A74D2E00295A6D /* TerrainTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B3DC4E21A74D2E00295A6D /* TerrainTile.swift */; };
 		54B3DC5121A74D7F00295A6D /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B3DC5021A74D7F00295A6D /* TileType.swift */; };
 		54B3DC5321A7533100295A6D /* TerrainStatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B3DC5221A7533100295A6D /* TerrainStatics.swift */; };
+		6A1879F27529244DD12B8624 /* Pods_HexTerrainDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD23B6A38EF31ED318377E64 /* Pods_HexTerrainDemo.framework */; };
 		D78D6055219FB7DD00B995B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D6054219FB7DD00B995B8 /* AppDelegate.swift */; };
 		D78D6057219FB7DD00B995B8 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D6056219FB7DD00B995B8 /* art.scnassets */; };
 		D78D6059219FB7DD00B995B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D6058219FB7DD00B995B8 /* ViewController.swift */; };
@@ -25,9 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A5558BAE7EF7DF087AA6F53 /* Pods-HexTerrainDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HexTerrainDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HexTerrainDemo/Pods-HexTerrainDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		54B3DC4E21A74D2E00295A6D /* TerrainTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainTile.swift; sourceTree = "<group>"; };
 		54B3DC5021A74D7F00295A6D /* TileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileType.swift; sourceTree = "<group>"; };
 		54B3DC5221A7533100295A6D /* TerrainStatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainStatics.swift; sourceTree = "<group>"; };
+		8DE231290AE3F9B9118CC53D /* Pods-HexTerrainDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HexTerrainDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HexTerrainDemo/Pods-HexTerrainDemo.release.xcconfig"; sourceTree = "<group>"; };
+		AD23B6A38EF31ED318377E64 /* Pods_HexTerrainDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HexTerrainDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78D6051219FB7DD00B995B8 /* HexTerrainDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HexTerrainDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78D6054219FB7DD00B995B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D78D6056219FB7DD00B995B8 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -49,17 +53,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A1879F27529244DD12B8624 /* Pods_HexTerrainDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B768B88D4E3C45052FA06FC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A5558BAE7EF7DF087AA6F53 /* Pods-HexTerrainDemo.debug.xcconfig */,
+				8DE231290AE3F9B9118CC53D /* Pods-HexTerrainDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7E70506B07E37C032EE31273 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AD23B6A38EF31ED318377E64 /* Pods_HexTerrainDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D78D6048219FB7DD00B995B8 = {
 			isa = PBXGroup;
 			children = (
 				D78D6053219FB7DD00B995B8 /* HexTerrainDemo */,
 				D78D6052219FB7DD00B995B8 /* Products */,
+				1B768B88D4E3C45052FA06FC /* Pods */,
+				7E70506B07E37C032EE31273 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,9 +141,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D78D6065219FB7DE00B995B8 /* Build configuration list for PBXNativeTarget "HexTerrainDemo" */;
 			buildPhases = (
+				16A187A9C6A11A15B9143DB4 /* [CP] Check Pods Manifest.lock */,
 				D78D604D219FB7DD00B995B8 /* Sources */,
 				D78D604E219FB7DD00B995B8 /* Frameworks */,
 				D78D604F219FB7DD00B995B8 /* Resources */,
+				D78E922021A7DD5A00F168ED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -176,6 +202,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16A187A9C6A11A15B9143DB4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HexTerrainDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D78E922021A7DD5A00F168ED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D78D604D219FB7DD00B995B8 /* Sources */ = {
@@ -336,6 +404,7 @@
 		};
 		D78D6066219FB7DE00B995B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A5558BAE7EF7DF087AA6F53 /* Pods-HexTerrainDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -354,6 +423,7 @@
 		};
 		D78D6067219FB7DE00B995B8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DE231290AE3F9B9118CC53D /* Pods-HexTerrainDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
