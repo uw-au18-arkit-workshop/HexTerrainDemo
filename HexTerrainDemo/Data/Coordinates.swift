@@ -8,9 +8,10 @@
 
 import Foundation
 
-// Stores precomputed values used for converting between coordinate systems
-// These values are precomputed to avoid needing to execute potentially
-//	expensive computations during coordinate system conversions.
+/** Stores precomputed values used for converting between coordinate systems
+	These values are precomputed to avoid needing to execute potentially
+	expensive computations during coordinate system conversions.
+*/
 struct CoordinateStatics {
 	static let SQRT3: Float = sqrt(3.0);
 }
@@ -29,7 +30,7 @@ protocol CoordinateSystem {
 // Algorithms sourced from Amit Patel's Red Blob Games:
 // https://www.redblobgames.com/grids/hexagons/#conversions
 
-// Struct used to represent a coordinate in Axial Hex Coordinates
+/// Struct used to represent a coordinate in Axial Hex Coordinates
 struct Axial: CoordinateSystem {
 	var x = 0
 	var y = 0
@@ -56,11 +57,12 @@ struct Axial: CoordinateSystem {
 	}
 }
 
-// Struct used to represent a coordinate in Cartesian Coordinates
-// Unlike the three other coordinate systems, this coordinate system is
-//	used to represent positions in the SceneKit coordinate system, rather
-//	than representing a hex tile's coordinates.
-// Note: The Cartesian Hex Coordinate System only uses the X and Y axes
+/** Struct used to represent a coordinate in Cartesian Coordinates
+	Unlike the three other coordinate systems, this coordinate system is
+	used to represent positions in the SceneKit coordinate system, rather
+	than representing a hex tile's coordinates.
+	- Note: The Cartesian Hex Coordinate System only uses the X and Y axes
+*/
 struct Cartesian: CoordinateSystem {
 	var x: Float = 0.0
 	var y: Float = 0.0
@@ -82,8 +84,8 @@ struct Cartesian: CoordinateSystem {
 	}
 }
 
-// Struct used to represent a coordinate in Cube Hex Coordinates
-// Note: The Cube Hex Coordinate System uses the X, Y, and Z axes
+///Struct used to represent a coordinate in Cube Hex Coordinates
+/// - Note: The Cube Hex Coordinate System uses the X, Y, and Z axes
 struct Cube: CoordinateSystem {
 	var x = 0
 	var y = 0
@@ -109,8 +111,8 @@ struct Cube: CoordinateSystem {
 	}
 }
 
-// Struct used to represent a coordinate in Offset Hex Coordinates
-// Note: The Offset Hex Coordinate System only uses the X and Y axes
+/// Struct used to represent a coordinate in Offset Hex Coordinates
+/// - Note: The Offset Hex Coordinate System only uses the X and Y axes
 struct Offset: CoordinateSystem {
 	var x = 0
 	var y = 0
