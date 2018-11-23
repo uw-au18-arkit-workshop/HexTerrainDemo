@@ -13,7 +13,7 @@ import Foundation
 	expensive computations during coordinate system conversions.
 */
 struct CoordinateStatics {
-	static let SQRT3: Float = sqrt(3.0);
+	static let SQRT3: Float = sqrt(3.0)
 }
 
 protocol CoordinateSystem {
@@ -41,19 +41,20 @@ struct Axial: CoordinateSystem {
 	func toCartesian() -> Cartesian {
 		var cartesian = Cartesian()
 		cartesian.x = TerrainStatics.SCALE_FACTOR *
-			(CoordinateStatics.SQRT3 * Float(x) + CoordinateStatics.SQRT3 / 2.0 * Float(y))
+			(CoordinateStatics.SQRT3 * Float(x) +
+				CoordinateStatics.SQRT3 / 2.0 * Float(y))
 		cartesian.y = TerrainStatics.SCALE_FACTOR * (3.0 / 2.0 * Float(y))
 		return cartesian
 	}
 	func toCube() -> Cube {
 		var cube = Cube()
-		cube.x = x;
-		cube.z = y;
-		cube.y = -x - y;
-		return cube;
+		cube.x = x
+		cube.z = y
+		cube.y = -x - y
+		return cube
 	}
 	func toOffset() -> Offset {
-		return self.toCube().toOffset();
+		return self.toCube().toOffset()
 	}
 }
 
@@ -69,7 +70,8 @@ struct Cartesian: CoordinateSystem {
 	
 	func toAxial() -> Axial {
 		var axial = Axial()
-		axial.x = Int(round(((CoordinateStatics.SQRT3 / 3.0 * x) - (1.0 / 3.0) * y) / TerrainStatics.SCALE_FACTOR))
+		axial.x = Int(round(((CoordinateStatics.SQRT3 / 3.0 * x) -
+			(1.0 / 3.0) * y) / TerrainStatics.SCALE_FACTOR))
 		axial.y = Int(round((2.0 / 3.0 * y) / TerrainStatics.SCALE_FACTOR))
 		return axial
 	}
@@ -122,7 +124,8 @@ struct Offset: CoordinateSystem {
 	}
 	func toCartesian() -> Cartesian {
 		var cartesian = Cartesian()
-		cartesian.x = TerrainStatics.SCALE_FACTOR * CoordinateStatics.SQRT3 * (Float(x) + 0.5 * Float((y & 1)))
+		cartesian.x = TerrainStatics.SCALE_FACTOR * CoordinateStatics.SQRT3 *
+			(Float(x) + 0.5 * Float((y & 1)))
 		cartesian.y = TerrainStatics.SCALE_FACTOR * 3.0 / 2.0 * Float(y)
 		return cartesian
 	}
