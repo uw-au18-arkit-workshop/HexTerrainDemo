@@ -83,8 +83,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 		// --- Terrain Node ---
 
-		let terrain = Terrain(withPattern: [[1]])
+		let terrain = Terrain(withPattern: [[1]])!
+		print(terrain.data)
 		let terrainGeometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+		terrainGeometry.firstMaterial?.diffuse.contents = UIColor.blue
 		let terrainMesh = TerrainMesh(fromTerrain: terrain, geometry: terrainGeometry)
 		let allTerrain = BasicTerrainGenerator.generateTerrain(withMesh: terrainMesh)
 

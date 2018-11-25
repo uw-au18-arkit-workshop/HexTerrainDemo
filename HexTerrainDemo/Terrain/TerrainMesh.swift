@@ -14,10 +14,17 @@ class TerrainMesh {
 	// Mesh data for a chunk of terrain
 	var terrain: Terrain
 	var geometry: SCNGeometry // @TODO: Subclass SCNGeometry to define our own mesh structure (hexagon)
+	var totalMesh: SCNGeometry?
 
 	init(fromTerrain terrain: Terrain, geometry: SCNGeometry) {
 		self.terrain = terrain
 		self.geometry = geometry
+
+		generateTerrain()
+	}
+
+	func generateTerrain() {
+		// Do the magics
 	}
 
 

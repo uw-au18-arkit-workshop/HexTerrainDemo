@@ -20,11 +20,11 @@ class BasicTerrainGenerator: TerrainGenerator {
 
 		let rootTerrainNode = SCNNode()
 
-		// Insert working code here
+		// @FIXME: Read from mesh.totalGeometry instead
+		rootTerrainNode.addChildNode(SCNNode(geometry: mesh.geometry))
 
 		return rootTerrainNode
 
 	}
-
 
 }

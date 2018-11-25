@@ -17,14 +17,22 @@ struct Terrain {
 	// Each number maps to a TerrainType
 	// E.g., 0 = none, 1 = grass, 2 = dirt
 	// @TODO: Serialize into a smarter data structure
-	init(withPattern pattern: [[UInt8]]) {
+	init?(withPattern pattern: [[UInt8]]) {
 
 		self.data = [TerrainTile]()
 
 		// Iterate through provided data
 		for row in pattern {
 			for val in row {
-				self.data.append(TerrainTile(tileType: val, height: 1))
+
+				// Error out if unable to print this tile
+				guard let tileType = TileType(rawValue: val) else {
+					print("Unable to convert tile with value \(val)")
+					return nil
+				}
+
+				let tile = TerrainTile(tileType: tileType, height: 1)
+				self.data.append(tile)
 			}
 		}
 
