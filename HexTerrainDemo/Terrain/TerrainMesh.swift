@@ -7,19 +7,18 @@
 //
 
 import Foundation
-
-
+import SceneKit
 
 class TerrainMesh {
 
 	// Mesh data for a chunk of terrain
 	var terrain: Terrain
+	var geometry: SCNGeometry // @TODO: Subclass SCNGeometry to define our own mesh structure (hexagon)
 
-	init(fromTerrain terrain: Terrain) {
+	init(fromTerrain terrain: Terrain, geometry: SCNGeometry) {
 		self.terrain = terrain
+		self.geometry = geometry
 	}
 
-
-	// @TODO: Might be easier to wrap this functionality into Terrain as a computed property, and have TerrainMesh as a protocol ("interface")
 
 }

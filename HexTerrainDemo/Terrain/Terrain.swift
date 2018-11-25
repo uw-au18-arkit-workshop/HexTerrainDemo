@@ -10,9 +10,23 @@ import Foundation
 
 
 struct Terrain {
+
 	// All tile objects representing our terrain
 	var data: [TerrainTile]
 
-	// @TODO: Create functions for accessing data
-	// (Why not access directly?)
+	// Each number maps to a TerrainType
+	// E.g., 0 = none, 1 = grass, 2 = dirt
+	// @TODO: Serialize into a smarter data structure
+	init(withPattern pattern: [[UInt8]]) {
+
+		self.data = [TerrainTile]()
+
+		// Iterate through provided data
+		for row in pattern {
+			for val in row {
+				self.data.append(TerrainTile(tileType: val, height: 1))
+			}
+		}
+
+	}
 }

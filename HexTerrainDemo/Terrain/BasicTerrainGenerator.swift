@@ -7,10 +7,24 @@
 //
 
 import Foundation
+import SceneKit
+import ARKit
 
 class BasicTerrainGenerator: TerrainGenerator {
 
-	// Creates a Terrain object with every tile set to the same type & height
-	// (Non-procedural)
-	// @TODO
+	// Creates a Terrain object with every tile set to the same type & height,
+	// using data provided by the TerrainMesh.
+
+	// Genrates terrain using the specified mesh pattern
+	static func generateTerrain(withMesh mesh: TerrainMesh) -> SCNNode {
+
+		let rootTerrainNode = SCNNode()
+
+		// Insert working code here
+
+		return rootTerrainNode
+
+	}
+
+
 }

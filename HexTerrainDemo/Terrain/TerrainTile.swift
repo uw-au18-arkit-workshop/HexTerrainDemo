@@ -10,10 +10,22 @@ import Foundation
 
 // Data for each tile
 struct TerrainTile {
-	// Type of the tile
-	var tileType: TileType
-	// Height of the tile
-	// Tile heights are discrete, so a floating point type does not need
-	//	to be used for the tile height
-	var height: Int
+
+	var tileType: TileType // Type of the tile
+	var height: Int // Tile heights are discrete, no need for Double
+
+	// By default, tiles will be Grass
+	init(tileType: TileType = .Grass, height: Int) {
+		self.tileType = tileType
+		self.height = height
+	}
+
+
+}
+
+
+// The various things a tile can be
+enum TileType: UInt8 {
+	case Grass = 1
+	case Dirt
 }

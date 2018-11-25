@@ -78,9 +78,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		// Plane wrapper node
 		let planeGeometryNode = SCNNode(geometry: planeGeometry!)
 
-		// Finally, add text and plane to the scene
+
+
+
+		// --- Terrain Node ---
+
+		let terrain = Terrain(withPattern: [[1]])
+		let terrainGeometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+		let terrainMesh = TerrainMesh(fromTerrain: terrain, geometry: terrainGeometry)
+		let allTerrain = BasicTerrainGenerator.generateTerrain(withMesh: terrainMesh)
+
+
+		// Finally, add everything to the scene
 		node.addChildNode(textNode)
 		node.addChildNode(planeGeometryNode)
+		node.addChildNode(allTerrain)
 
 	}
 
