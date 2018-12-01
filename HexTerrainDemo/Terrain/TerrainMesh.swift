@@ -44,8 +44,8 @@ class TerrainMesh {
 		// Array for all geometry elements rendered in AR
 		// May need to be moved to the class (class var instead of local var)
 		//	if ownership is not transferred to the SCNGeometry class
-		var vertices = SCNGeometrySource()
-		var elements = SCNGeometryElement()
+		var vertices = [SCNGeometrySource]()
+		var elements = [SCNGeometryElement]()
 
 		// Indices affect the culling of each hexagon
 		let indices: [Int32] = [
@@ -62,12 +62,12 @@ class TerrainMesh {
 			for y in 0..<mapSizeY {
 				let vertexData = generateVertices(centerX: x, centerY: y, withHexHeight: 0.0)
 				print("vertexData: \(vertexData)")
-				vertices = SCNGeometrySource(vertices: vertexData)
-				elements = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+				vertices.append(SCNGeometrySource(vertices: vertexData))
+				elements.append(SCNGeometryElement(indices: indices, primitiveType: .triangles))
 			}
 		}
 
-		self.geometry = SCNGeometry(sources: [vertices], elements: [elements])
+		self.geometry = SCNGeometry(sources: vertices, elements: elements)
 		self.geometry?.name = "Terrain"
 		self.geometry?.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
 		self.geometry?.firstMaterial?.isDoubleSided = true
