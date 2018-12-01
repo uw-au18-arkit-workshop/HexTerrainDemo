@@ -13,7 +13,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
 	@IBOutlet var sceneView: ARSCNView!
-
+	var terrainNode = SCNNode()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -87,7 +87,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let terrainMesh = TerrainMesh(fromTerrain: terrain)
 
 		print(terrainMesh.geometry?.description)
-		let terrainNode = SCNNode(geometry: terrainMesh.geometry)
+		self.terrainNode = SCNNode(geometry: terrainMesh.geometry)
 
 
 		// Finally, add everything to the scene
@@ -121,6 +121,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 		// Update the geometry!
 		planeGeometry.update(from: (anchor as! ARPlaneAnchor).geometry)
+
+		node.addChildNode(self.terrainNode)
 
 	}
 
