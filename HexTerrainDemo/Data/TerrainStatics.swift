@@ -12,5 +12,5 @@ import Foundation
 class TerrainStatics {
 	// Scale factor used to modify the size of hex tiles compared to a single
 	//	unit in the standard coordinate system used by ARKit/SceneKit
-	static let SCALE_FACTOR: Float = 100.0
+	static let SCALE_FACTOR: Float = 0.01
 }

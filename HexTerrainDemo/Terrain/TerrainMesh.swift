@@ -14,8 +14,8 @@ class TerrainMesh {
 	// Mesh data for all terrain
 	var terrain: Terrain
 	var geometry: SCNGeometry? // @TODO: Subclass SCNGeometry to define our own mesh structure (hexagon)
-	let mapSizeX = 16
-	let mapSizeY = 16
+	let mapSizeX = 8
+	let mapSizeY = 8
 
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
@@ -26,11 +26,15 @@ class TerrainMesh {
 			var vertices = [SCNVector3]()
 
 			for point in 0..<6 {
+
 				let position = Offset(x: centerX, y: centerY)
 				let worldPos = position.toCartesian()
-				let vertexX = Float(centerX) + TerrainStatics.SCALE_FACTOR * cos(Float(60 * point - 30) * (Float.pi / 180))
-				let vertexY = Float(centerY) + TerrainStatics.SCALE_FACTOR * sin(Float(60 * point - 30) * (Float.pi / 180))
-				print("x: \(vertexX) y: \(height), z: \(vertexY)")
+				print("posx: \(position.x), posy: \(position.y)")
+				print("worldposx: \(worldPos.x), worldposy: \(worldPos.y)")
+
+				let vertexX = worldPos.x + cos(Float(60 * point - 30) * (Float.pi / 180))
+				let vertexY = worldPos.x + sin(Float(60 * point - 30) * (Float.pi / 180))
+//				print("x: \(vertexX) y: \(height), z: \(vertexY)")
 				vertices.append(SCNVector3(vertexX, height, vertexY))
 			}
 

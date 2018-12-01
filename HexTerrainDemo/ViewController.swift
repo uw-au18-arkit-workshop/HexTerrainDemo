@@ -88,7 +88,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 		print(terrainMesh.geometry?.description)
 		self.terrainNode = SCNNode(geometry: terrainMesh.geometry)
-
+		self.terrainNode.scale = SCNVector3(0.01, 0.01, 0.01)
 
 		// Finally, add everything to the scene
 		node.addChildNode(textNode)
