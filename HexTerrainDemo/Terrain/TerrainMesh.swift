@@ -62,6 +62,10 @@ class TerrainMesh {
 			for y in 0..<mapSizeY {
 				let vertexData = generateVertices(centerX: x, centerY: y, withHexHeight: 0.0)
 				print("vertexData: \(vertexData)")
+
+				let offsetIndices = indices.map({ return ($0 + Int32(vertexData.count)) })
+				print("indices: \(offsetIndices)")
+
 				vertices.append(SCNGeometrySource(vertices: vertexData))
 				elements.append(SCNGeometryElement(indices: indices, primitiveType: .triangles))
 			}
