@@ -82,19 +82,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 
 		// --- Terrain Node ---
-
 		let terrain = Terrain(withPattern: [[1]])!
 		print(terrain.data)
-		let terrainGeometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
-		terrainGeometry.firstMaterial?.diffuse.contents = UIColor.blue
-		let terrainMesh = TerrainMesh(fromTerrain: terrain, geometry: terrainGeometry)
-		let allTerrain = BasicTerrainGenerator.generateTerrain(withMesh: terrainMesh)
+		let terrainMesh = TerrainMesh(fromTerrain: terrain)
+
+		print(terrainMesh.geometry?.description)
+		let terrainNode = SCNNode(geometry: terrainMesh.geometry)
 
 
 		// Finally, add everything to the scene
 		node.addChildNode(textNode)
 		node.addChildNode(planeGeometryNode)
-		node.addChildNode(allTerrain)
+		node.addChildNode(terrainNode)
+		print("Added all to node!")
 
 	}
 

@@ -26,6 +26,7 @@ struct TerrainTile {
 
 // The various things a tile can be
 enum TileType: UInt8 {
-	case Grass = 1
+	case None
+	case Grass
 	case Dirt
 }
