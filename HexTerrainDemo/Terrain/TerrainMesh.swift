@@ -14,23 +14,24 @@ class TerrainMesh {
 	// Mesh data for all terrain
 	var terrain: Terrain
 	var geometry: SCNGeometry? // @TODO: Subclass SCNGeometry to define our own mesh structure (hexagon)
-	let mapSizeX = 2
-	let mapSizeY = 2
-	let scaleFactor: Float = 0.1
+	let mapSizeX = 16
+	let mapSizeY = 16
 
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
 
 		// Generates the vertices for a hex
 		// @TODO: Extract, currently getting "self" error
-		func generateVertices(centerX: Float, centerY: Float, withHexHeight height: Float) -> [SCNVector3] {
+		func generateVertices(centerX: Int, centerY: Int, withHexHeight height: Float) -> [SCNVector3] {
 			var vertices = [SCNVector3]()
 
 			for point in 0..<6 {
-				let vertexX = centerX * cos(Float(60 * point - 30) * (Float.pi / 180))
-				let vertexY = centerY * sin(Float(60 * point - 30) * (Float.pi / 180))
-				print("x: \(vertexX * scaleFactor) y: \(height), z: \(vertexY * scaleFactor)")
-				vertices.append(SCNVector3(vertexX * scaleFactor, height, vertexY * scaleFactor))
+				let position = Offset(x: centerX, y: centerY)
+				let worldPos = position.toCartesian()
+				let vertexX = Float(centerX) + TerrainStatics.SCALE_FACTOR * cos(Float(60 * point - 30) * (Float.pi / 180))
+				let vertexY = Float(centerY) + TerrainStatics.SCALE_FACTOR * sin(Float(60 * point - 30) * (Float.pi / 180))
+				print("x: \(vertexX) y: \(height), z: \(vertexY)")
+				vertices.append(SCNVector3(vertexX, height, vertexY))
 			}
 
 			return vertices
@@ -55,7 +56,7 @@ class TerrainMesh {
 		// Iterate over all tiles on the map
 		for x in 0..<mapSizeX {
 			for y in 0..<mapSizeY {
-				let vertexData = generateVertices(centerX: Float(x), centerY: Float(y), withHexHeight: 0.0)
+				let vertexData = generateVertices(centerX: x, centerY: y, withHexHeight: 0.0)
 				print("vertexData: \(vertexData)")
 				vertices = SCNGeometrySource(vertices: vertexData)
 				elements = SCNGeometryElement(indices: indices, primitiveType: .triangles)
