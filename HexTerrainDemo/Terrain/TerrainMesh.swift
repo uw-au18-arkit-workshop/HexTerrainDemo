@@ -48,20 +48,42 @@ class TerrainMesh {
 		var elementData = [Int32]()
 
 		// Indices affect the culling of each hexagon
-		let indices: [Int32] = [
-//			// Outer triangles
+		var indices: [Int32] = [
+			// Bottom Triangles
+			// Outer triangles
 			2, 1, 0,
 			4, 3, 2,
 			0, 5, 4,
 			// Inner/Center triangles
-			4, 2, 0
+			4, 2, 0,
+			// Top Triangles
+			// Outer triangles
+			8, 7, 6,
+			10, 9, 8,
+			6, 11, 10,
+			// Inner/Center triangles
+			10, 8, 6
 		]
+		
+		// Indices for the vertical sides
+		for i: Int32 in 0..<6 {
+			indices.append(i)
+			indices.append(i + 6)
+			indices.append(i + 7)
+			
+			indices.append(i + 7)
+			indices.append(i + 1)
+			indices.append(i)
+		}
 
 		// Iterate over all tiles on the map
 		for x in 0..<mapSizeX {
 			for y in 0..<mapSizeY {
+				// In functor: if i == 5, need to handle wrap around for integers
+				// If i == 5, generate: 5, 11, 6; 6, 0, 5
 				elementData.append(contentsOf: indices.map({ return ($0 + Int32(vertexData.count))}))
-				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: 0.1))
+				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: 0.0))
+				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: Float(x + y)))
 			}
 		}
 		
