@@ -13,50 +13,30 @@ class TerrainMesh {
 
 	// Mesh data for all terrain
 	var terrain: Terrain
-	var geometry: SCNGeometry? // @TODO: Subclass SCNGeometry to define our own mesh structure (hexagon)
+	var geometry: SCNGeometry?
 	let mapSizeX = 128
 	let mapSizeY = 128
 
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
-		
+
+		// @TODO: Add this to generateVertices function
 		func degToRad(_ x: Float) -> Float {
 			return x * (Float.pi / 180)
 		}
-		
-		let cosTable: [Float] = [
-			cos(degToRad(-30)),
-			cos(degToRad(30)),
-			cos(degToRad(90)),
-			cos(degToRad(150)),
-			cos(degToRad(210)),
-			cos(degToRad(270))
-		]
-		
-		let sinTable: [Float] = [
-			sin(degToRad(-30)),
-			sin(degToRad(30)),
-			sin(degToRad(90)),
-			sin(degToRad(150)),
-			sin(degToRad(210)),
-			sin(degToRad(270))
-		]
 
 		// Generates the vertices for a hex
 		// @TODO: Extract, currently getting "self" error
+		// @TODO: Rename y coord to z, move height to y position in params
 		func generateVertices(centerX: Int, centerY: Int, withHexHeight height: Float) -> [SCNVector3] {
 			var vertices = [SCNVector3]()
 
+			// Generates hexagon verticies using
+			// this image: https://imgur.com/Jcn53n2
 			for point in 0..<6 {
-
-				let position = Offset(x: centerX, y: centerY)
-				let worldPos = position.toCartesian()
-				print("posx: \(position.x), posy: \(position.y)")
-				print("worldposx: \(worldPos.x), worldposy: \(worldPos.y)")
-				
-				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * cosTable[point]
-				let vertexY = worldPos.y + TerrainStatics.SCALE_FACTOR * sinTable[point]
-//				print("x: \(vertexX) y: \(height), z: \(vertexY)")
+				let worldPos = Offset(x: centerX, y: centerY).toCartesian()
+				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * cos(Float(60 * point - 30) * (Float.pi / 180))
+				let vertexY = worldPos.y + TerrainStatics.SCALE_FACTOR * sin(Float(60 * point - 30) * (Float.pi / 180))
 				vertices.append(SCNVector3(vertexX, height, vertexY))
 			}
 
@@ -104,6 +84,8 @@ class TerrainMesh {
 		//                                5, 11, 6 ; 6,  0, 5
 		indices.append(contentsOf: [5, 11, 6, 6, 0, 5])
 
+		let startTime = CFAbsoluteTimeGetCurrent()
+
 		// Iterate over all tiles on the map
 		for x in 0..<mapSizeX {
 			for y in 0..<mapSizeY {
@@ -118,7 +100,10 @@ class TerrainMesh {
 			}
 		}
 
-		// Assign geometry to
+		let endTime = CFAbsoluteTimeGetCurrent()
+		print("Generation time: \(endTime - startTime)")
+
+		// Assign geometry to field because reasons
 		self.geometry = SCNGeometry(sources: [SCNGeometrySource(vertices: vertexData)],
 		                            elements: [SCNGeometryElement(indices: elementData, primitiveType: .triangles)])
 		self.geometry?.name = "Terrain"
