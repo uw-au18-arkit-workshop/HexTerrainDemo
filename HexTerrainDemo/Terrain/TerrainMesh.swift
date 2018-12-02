@@ -32,8 +32,8 @@ class TerrainMesh {
 				print("posx: \(position.x), posy: \(position.y)")
 				print("worldposx: \(worldPos.x), worldposy: \(worldPos.y)")
 
-				let vertexX = worldPos.x + cos(Float(60 * point - 30) * (Float.pi / 180))
-				let vertexY = worldPos.x + sin(Float(60 * point - 30) * (Float.pi / 180))
+				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * cos(Float(60 * point - 30) * (Float.pi / 180))
+				let vertexY = worldPos.y + TerrainStatics.SCALE_FACTOR * sin(Float(60 * point - 30) * (Float.pi / 180))
 //				print("x: \(vertexX) y: \(height), z: \(vertexY)")
 				vertices.append(SCNVector3(vertexX, height, vertexY))
 			}
@@ -60,8 +60,8 @@ class TerrainMesh {
 		// Iterate over all tiles on the map
 		for x in 0..<mapSizeX {
 			for y in 0..<mapSizeY {
+				elementData.append(contentsOf: indices.map({ return ($0 + Int32(vertexData.count))}))
 				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: 0.1))
-				elementData.append(contentsOf: indices.map({ return ($0 + Int32(vertexData.count * 6))}))
 			}
 		}
 		
@@ -70,30 +70,6 @@ class TerrainMesh {
 		self.geometry?.name = "Terrain"
 		self.geometry?.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
 		self.geometry?.firstMaterial?.isDoubleSided = true
-
-
-		// THANKS STACKOVERFLOW
-//		let hisVertices = [
-////			SCNVector3(x: 5, y: 4, z: 0),
-////			SCNVector3(x: -5 , y: 4, z: 0),
-////			SCNVector3(x: -5, y: -5, z: 0),
-////			SCNVector3(x: 5, y: -5, z: 0)
-////			SCNVector3(4, 0, 4),
-////			SCNVector3(-4, 0, 4),
-////			SCNVector3(-4, 0, -4),
-////			SCNVector3(4, 0, -4),
-//		]
-//
-//		let allPrimitives: [Int32] = [0, 1, 2, 0, 2, 3]
-//		let vertexSource = SCNGeometrySource(vertices: hisVertices)
-//		let element = SCNGeometryElement(indices: allPrimitives, primitiveType: .triangles)
-//		self.geometry = SCNGeometry(sources: [vertexSource], elements: [element])
-//		self.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-//		self.geometry?.firstMaterial?.isDoubleSided = true
-//
-
-
-//		self.geometry = SCNBox(width: 0.4, height: 0.4, length: 0.4, chamferRadius: 0)
 	}
 
 
