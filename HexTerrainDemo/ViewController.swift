@@ -61,8 +61,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let textNode = SCNNode(geometry: textGeometry)
 		textNode.simdScale = float3(0.0005)
 
-		// Why not some plane geometry too
-		let planeGeometry = ARSCNPlaneGeometry(device: self.sceneView.device!)
+		// Shows the geometry of the detected plane
+		var planeGeometry: ARSCNPlaneGeometry?
+		if let viewDevice = self.sceneView.device {
+			planeGeometry = ARSCNPlaneGeometry(device: viewDevice)
+		} else {
+
+			// If we're unable to find a device on our scene, create a default one
+			let defaultDevice = MTLCreateSystemDefaultDevice()
+
+			guard defaultDevice != nil else {
+				fatalError("Unable to find default Metal device.")
+			}
+
+			planeGeometry = ARSCNPlaneGeometry(device: defaultDevice!)
+		}
 
 		guard planeGeometry != nil else {
 			fatalError("Unable to create plane geometry")
