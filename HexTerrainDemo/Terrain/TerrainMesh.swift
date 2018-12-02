@@ -19,6 +19,28 @@ class TerrainMesh {
 
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
+		
+		func degToRad(_ x: Float) -> Float {
+			return x * (Float.pi / 180)
+		}
+		
+		let cosTable: [Float] = [
+			cos(degToRad(-30)),
+			cos(degToRad(30)),
+			cos(degToRad(90)),
+			cos(degToRad(150)),
+			cos(degToRad(210)),
+			cos(degToRad(270))
+		]
+		
+		let sinTable: [Float] = [
+			sin(degToRad(-30)),
+			sin(degToRad(30)),
+			sin(degToRad(90)),
+			sin(degToRad(150)),
+			sin(degToRad(210)),
+			sin(degToRad(270))
+		]
 
 		// Generates the vertices for a hex
 		// @TODO: Extract, currently getting "self" error
@@ -31,9 +53,9 @@ class TerrainMesh {
 				let worldPos = position.toCartesian()
 				print("posx: \(position.x), posy: \(position.y)")
 				print("worldposx: \(worldPos.x), worldposy: \(worldPos.y)")
-
-				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * cos(Float(60 * point - 30) * (Float.pi / 180))
-				let vertexY = worldPos.y + TerrainStatics.SCALE_FACTOR * sin(Float(60 * point - 30) * (Float.pi / 180))
+				
+				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * cosTable[point]
+				let vertexY = worldPos.y + TerrainStatics.SCALE_FACTOR * sinTable[point]
 //				print("x: \(vertexX) y: \(height), z: \(vertexY)")
 				vertices.append(SCNVector3(vertexX, height, vertexY))
 			}
