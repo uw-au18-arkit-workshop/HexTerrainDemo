@@ -14,8 +14,8 @@ class TerrainMesh {
 	// Mesh data for all terrain
 	var terrain: Terrain
 	var geometry: SCNGeometry? // @TODO: Subclass SCNGeometry to define our own mesh structure (hexagon)
-	let mapSizeX = 8
-	let mapSizeY = 8
+	let mapSizeX = 128
+	let mapSizeY = 128
 
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
@@ -66,7 +66,7 @@ class TerrainMesh {
 		]
 		
 		// Indices for the vertical sides
-		for i: Int32 in 0..<6 {
+		for i: Int32 in 0..<5 {
 			indices.append(i)
 			indices.append(i + 6)
 			indices.append(i + 7)
@@ -76,21 +76,31 @@ class TerrainMesh {
 			indices.append(i)
 		}
 
+		// We need to handle wrapping around our indices
+		// when we finish drawing the side of the 3d hexagon
+		// If i == 5, we need to replace: 5, 11, 12; 12, 6, 5
+		//                                5, 11, 6 ; 6,  0, 5
+		indices.append(contentsOf: [5, 11, 6, 6, 0, 5])
+
 		// Iterate over all tiles on the map
 		for x in 0..<mapSizeX {
 			for y in 0..<mapSizeY {
-				// In functor: if i == 5, need to handle wrap around for integers
-				// If i == 5, generate: 5, 11, 6; 6, 0, 5
-				elementData.append(contentsOf: indices.map({ return ($0 + Int32(vertexData.count))}))
-				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: 0.0))
+
+				// Offset each indice to the correct hexagon
+				elementData.append(contentsOf: indices.map { num -> Int32 in
+					return num + Int32(vertexData.count)
+				})
+
+				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: 0.1))
 				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: Float(x + y)))
 			}
 		}
-		
+
+		// Assign geometry to
 		self.geometry = SCNGeometry(sources: [SCNGeometrySource(vertices: vertexData)],
-									elements: [SCNGeometryElement(indices: elementData, primitiveType: .triangles)])
+		                            elements: [SCNGeometryElement(indices: elementData, primitiveType: .triangles)])
 		self.geometry?.name = "Terrain"
-		self.geometry?.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
+		self.geometry?.firstMaterial?.diffuse.contents = UIColor.red
 		self.geometry?.firstMaterial?.isDoubleSided = true
 	}
 
