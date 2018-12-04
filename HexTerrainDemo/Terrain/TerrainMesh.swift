@@ -14,8 +14,8 @@ class TerrainMesh {
 	// Mesh data for all terrain
 	var terrain: Terrain
 	var geometry: SCNGeometry?
-	let mapSizeX = 128
-	let mapSizeY = 128
+	let mapSizeX = 8
+	let mapSizeY = 8
 
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
@@ -27,17 +27,22 @@ class TerrainMesh {
 
 		// Generates the vertices for a hex
 		// @TODO: Extract, currently getting "self" error
-		// @TODO: Rename y coord to z, move height to y position in params
-		func generateVertices(centerX: Int, centerY: Int, withHexHeight height: Float) -> [SCNVector3] {
+		func generateVertices(centerX: Int, centerZ: Int, withHexHeight height: Float) -> [SCNVector3] {
+
 			var vertices = [SCNVector3]()
 
-			// Generates hexagon verticies using
-			// this image: https://imgur.com/Jcn53n2
+			// Generates hexagon verticies using this image
+			// as reference: https://imgur.com/Jcn53n2
 			for point in 0..<6 {
-				let worldPos = Offset(x: centerX, y: centerY).toCartesian()
-				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * cos(Float(60 * point - 30) * (Float.pi / 180))
-				let vertexY = worldPos.y + TerrainStatics.SCALE_FACTOR * sin(Float(60 * point - 30) * (Float.pi / 180))
-				vertices.append(SCNVector3(vertexX, height, vertexY))
+
+				let worldPos = Offset(x: centerX, y: centerZ).toCartesian()
+				let spacing: Float = 0.8 // Gaps between tiles
+				let x = cos(Float(60 * point - 30) * (Float.pi / 180))
+				let z = sin(Float(60 * point - 30) * (Float.pi / 180))
+
+				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * x * spacing
+				let vertexZ = worldPos.y + TerrainStatics.SCALE_FACTOR * z * spacing
+				vertices.append(SCNVector3(vertexX, height, vertexZ))
 			}
 
 			return vertices
@@ -68,6 +73,7 @@ class TerrainMesh {
 		]
 		
 		// Indices for the vertical sides
+		// Precondition: Type must be Int32
 		for i: Int32 in 0..<5 {
 			indices.append(i)
 			indices.append(i + 6)
@@ -80,35 +86,44 @@ class TerrainMesh {
 
 		// We need to handle wrapping around our indices
 		// when we finish drawing the side of the 3d hexagon
-		// If i == 5, we need to replace: 5, 11, 12; 12, 6, 5
+		// If i == 5, we need to replace: 5, 11, 12; 12, 6, 5 to
 		//                                5, 11, 6 ; 6,  0, 5
 		indices.append(contentsOf: [5, 11, 6, 6, 0, 5])
 
+		// This lets us stopwatch our vertex generation time for... reasons.
 		let startTime = CFAbsoluteTimeGetCurrent()
 
 		// Iterate over all tiles on the map
 		for x in 0..<mapSizeX {
-			for y in 0..<mapSizeY {
+			for z in 0..<mapSizeY {
 
 				// Offset each indice to the correct hexagon
 				elementData.append(contentsOf: indices.map { num -> Int32 in
 					return num + Int32(vertexData.count)
 				})
 
-				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: 0.1))
-				vertexData.append(contentsOf: generateVertices(centerX: x, centerY: y, withHexHeight: Float(x + y)))
+				// Generate top and bottom vertices
+				vertexData.append(contentsOf: generateVertices(centerX: x, centerZ: z, withHexHeight: 0.1))
+				vertexData.append(contentsOf: generateVertices(centerX: x, centerZ: z, withHexHeight: 0.5))
 			}
 		}
 
+		// Finish stopwatch
 		let endTime = CFAbsoluteTimeGetCurrent()
-		print("Generation time: \(endTime - startTime)")
+		print("Vertex generation time: \(endTime - startTime)")
 
-		// Assign geometry to field because reasons
+		// Assign geometry to class attribute
 		self.geometry = SCNGeometry(sources: [SCNGeometrySource(vertices: vertexData)],
 		                            elements: [SCNGeometryElement(indices: elementData, primitiveType: .triangles)])
-		self.geometry?.name = "Terrain"
+
+
+		// Set basic texture parameters to see the darn things
+		// (See lighting effects in ViewController for corresponding effect
 		self.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+		self.geometry?.firstMaterial?.transparency = 0.5
+		self.geometry?.firstMaterial?.transparencyMode = .dualLayer
 		self.geometry?.firstMaterial?.isDoubleSided = true
+		self.geometry?.name = "Terrain"
 	}
 
 
