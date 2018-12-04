@@ -1,0 +1,6 @@
+framework module Pods_HexTerrainDemo {
+  umbrella header "Pods-HexTerrainDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}

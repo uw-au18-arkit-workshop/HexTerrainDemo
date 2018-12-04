@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/swift,xcode,macos
-# Edit at https://www.gitignore.io/?templates=swift,xcode,macos
+# Created by https://www.gitignore.io/api/vim,swift,xcode,macos
+# Edit at https://www.gitignore.io/?templates=vim,swift,xcode,macos
 
 ### macOS ###
 # General
@@ -110,6 +110,25 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
 ### Xcode ###
 # Xcode
 #
@@ -172,4 +191,4 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.gitignore.io/api/swift,xcode,macos
+# End of https://www.gitignore.io/api/vim,swift,xcode,macos
