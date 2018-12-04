@@ -119,7 +119,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 
 		// Finally, add everything to the scene
-		node.addChildNode(textNode)
+//		node.addChildNode(textNode)
 		node.addChildNode(planeGeometryNode)
 		node.addChildNode(terrainNode)
 		node.addChildNode(lightNode)
