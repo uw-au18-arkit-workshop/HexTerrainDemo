@@ -20,34 +20,6 @@ class TerrainMesh {
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
 
-		// @TODO: Add this to generateVertices function
-		func degToRad(_ x: Float) -> Float {
-			return x * (Float.pi / 180)
-		}
-
-		// Generates the vertices for a hex
-		// @TODO: Extract, currently getting "self" error
-		func generateVertices(centerX: Int, centerZ: Int, withHexHeight height: Float) -> [SCNVector3] {
-
-			var vertices = [SCNVector3]()
-
-			// Generates hexagon verticies using this image
-			// as reference: https://imgur.com/Jcn53n2
-			for point in 0..<6 {
-
-				let worldPos = Offset(x: centerX, y: centerZ).toCartesian()
-				let spacing: Float = 0.8 // Gaps between tiles
-				let x = cos(Float(60 * point - 30) * (Float.pi / 180))
-				let z = sin(Float(60 * point - 30) * (Float.pi / 180))
-
-				let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * x * spacing
-				let vertexZ = worldPos.y + TerrainStatics.SCALE_FACTOR * z * spacing
-				vertices.append(SCNVector3(vertexX, height, vertexZ))
-			}
-
-			return vertices
-		}
-
 		// Array for all geometry elements rendered in AR
 		// May need to be moved to the class (class var instead of local var)
 		//	if ownership is not transferred to the SCNGeometry class
@@ -126,5 +98,33 @@ class TerrainMesh {
 		self.geometry?.name = "Terrain"
 	}
 
+
+	/// Generates vertices for all hexagons
+	///
+	/// - Parameters:
+	///   - centerX: Center of hexagon to draw from, in x plane
+	///   - centerZ: Center of hexagon to draw from, in z plane
+	///   - height: Height of each hexagon (thickness) in y plane
+	/// - Returns: Array of vertices, each a vector of <x, y, z> coordinates
+	private func generateVertices(centerX: Int, centerZ: Int, withHexHeight height: Float) -> [SCNVector3] {
+
+		var vertices = [SCNVector3]()
+
+		// Generates hexagon verticies using this image
+		// as reference: https://imgur.com/Jcn53n2
+		for point in 0..<6 {
+
+			let worldPos = Offset(x: centerX, y: centerZ).toCartesian()
+			let spacing: Float = 0.8 // Gaps between tiles
+			let x = cos(Float(60 * point - 30) * (Float.pi / 180))
+			let z = sin(Float(60 * point - 30) * (Float.pi / 180))
+
+			let vertexX = worldPos.x + TerrainStatics.SCALE_FACTOR * x * spacing
+			let vertexZ = worldPos.y + TerrainStatics.SCALE_FACTOR * z * spacing
+			vertices.append(SCNVector3(vertexX, height, vertexZ))
+		}
+
+		return vertices
+	}
 
 }
