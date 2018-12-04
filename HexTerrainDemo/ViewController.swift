@@ -9,6 +9,7 @@
 import UIKit
 import SceneKit
 import ARKit
+import os.log
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
@@ -21,8 +22,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		// Configures our SceneKit scene
 		sceneView.delegate = self
 		sceneView.showsStatistics = true
-		sceneView.debugOptions = [.showFeaturePoints, .showWireframe]
-
+		sceneView.debugOptions = [.showFeaturePoints, .showWorldOrigin, .showLightExtents, .showLightInfluences]
+		sceneView.automaticallyUpdatesLighting = false // Disable default lighting from SceneKit
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +31,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 		// Create a session configuration
 		let configuration = ARWorldTrackingConfiguration()
-		configuration.planeDetection = .horizontal
+		configuration.planeDetection = .horizontal    // We only want to detect things like tables
+		configuration.isLightEstimationEnabled = true // Enable dynamic light estimation from ARKit
 
 		// Run the view's session
 		sceneView.session.run(configuration)
@@ -82,7 +84,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		}
 
 		// Add material to make it visible
-		planeGeometry?.firstMaterial?.diffuse.contents = UIColor.blue.withAlphaComponent(0.5)
+		planeGeometry?.firstMaterial?.diffuse.contents = UIColor.blue.withAlphaComponent(0.2)
 
 		// Adds initial plane daata to the blank ARSCNPlaneGeometry
 		// @TODO: Move this to didUpate method
@@ -93,20 +95,34 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 
 
-
 		// --- Terrain Node ---
 		let terrain = Terrain(withPattern: [[1]])!
-		print(terrain.data)
 		let terrainMesh = TerrainMesh(fromTerrain: terrain)
-
-		print(terrainMesh.geometry?.description)
 		self.terrainNode = SCNNode(geometry: terrainMesh.geometry)
 		self.terrainNode.scale = SCNVector3(0.05, 0.05, 0.05)
+
+
+		// Lighting for terrain
+		let spotlight = SCNLight()
+		spotlight.type = .spot
+		spotlight.spotInnerAngle = 45
+		spotlight.spotOuterAngle = 45
+
+		// Create light node and position it
+		// @TODO: Fix when map is centered
+		// (Tip: Use view debug: SceneKit to try out pos/rot params!)
+		let lightNode = SCNNode()
+		lightNode.light = spotlight
+		lightNode.position = SCNVector3(0.17, 0.237, 0)
+		lightNode.eulerAngles = SCNVector3Make(-((2 * .pi) / 3), 0, 0)
+
+
 
 		// Finally, add everything to the scene
 		node.addChildNode(textNode)
 		node.addChildNode(planeGeometryNode)
 		node.addChildNode(terrainNode)
+		node.addChildNode(lightNode)
 		print("Added all to node!")
 
 	}
@@ -136,6 +152,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		planeGeometry.update(from: (anchor as! ARPlaneAnchor).geometry)
 
 		node.addChildNode(self.terrainNode)
+
+	}
+
+	func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+
+		let lightEstimate = self.sceneView.session.currentFrame?.lightEstimate
+
+		guard lightEstimate != nil else {
+			return
+		}
+
+//		os_log("Light esimate: %f", lightEstimate!.ambientIntensity)
 
 	}
 
