@@ -10,11 +10,13 @@ import UIKit
 import SceneKit
 import ARKit
 import os.log
+//import SceneKit.ModelIO
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
 	@IBOutlet var sceneView: ARSCNView!
 	var terrainNode = SCNNode()
+	//var meepleNode = SCNNode()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -116,13 +118,29 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		lightNode.position = SCNVector3(0.17, 0.237, 0)
 		lightNode.eulerAngles = SCNVector3Make(-((2 * .pi) / 3), 0, 0)
 
-
+		/*
+		// --- Meeple Node ---
+		// Load the .STL file
+		guard let meepleUrl = Bundle.main.url(forResource: "Meeple", withExtension: "stl")
+			else {
+			fatalError("Failed to find model file.")
+		}
+		
+		let meepleAsset = MDLAsset(url: meepleUrl)
+		guard let meepleObject = meepleAsset.object(at: 0) as? MDLMesh else {
+			fatalError("Failed to get mesh from asset.")
+		}
+		
+		// Wrap the ModelIO object in a SceneKit object
+		self.meepleNode = SCNNode(mdlObject: meepleObject)
+		*/
 
 		// Finally, add everything to the scene
 //		node.addChildNode(textNode)
 		node.addChildNode(planeGeometryNode)
 		node.addChildNode(terrainNode)
 		node.addChildNode(lightNode)
+		//node.addChildNode(meepleNode)
 		print("Added all to node!")
 
 	}
