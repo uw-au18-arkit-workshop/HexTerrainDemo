@@ -138,7 +138,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //		self.meepleNode = SCNNode(geometry: meeepleGeometry)
 
 		// Finally, add everything to the scene
-		node.addChildNode(textNode)
+//		node.addChildNode(textNode)
 		node.addChildNode(planeGeometryNode)
 		node.addChildNode(terrainNode)
 		node.addChildNode(lightNode)
