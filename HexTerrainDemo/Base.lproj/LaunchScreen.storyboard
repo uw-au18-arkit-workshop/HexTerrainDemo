@@ -33,21 +33,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qO3-Tt-ofz">
-                                        <rect key="frame" x="69.5" y="226" width="34" height="30"/>
-                                        <state key="normal" title="Start"/>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="173" id="3T5-kq-PkM"/>
-                                    <constraint firstItem="qO3-Tt-ofz" firstAttribute="centerY" secondItem="p41-8a-wri" secondAttribute="centerY" constant="102.5" id="5pv-Md-Gyn"/>
                                     <constraint firstItem="H1w-3h-3Mv" firstAttribute="centerY" secondItem="p41-8a-wri" secondAttribute="centerY" constant="-54.5" id="7b0-De-vyi"/>
                                     <constraint firstItem="H1w-3h-3Mv" firstAttribute="centerX" secondItem="p41-8a-wri" secondAttribute="centerX" id="8Qr-tI-tey"/>
                                     <constraint firstItem="RFF-ur-apr" firstAttribute="centerY" secondItem="p41-8a-wri" secondAttribute="centerY" constant="52" id="9uv-QS-Emq"/>
                                     <constraint firstItem="RFF-ur-apr" firstAttribute="centerX" secondItem="p41-8a-wri" secondAttribute="centerX" id="mh7-5f-R6j"/>
                                     <constraint firstAttribute="height" constant="277" id="pWd-vP-3Gm"/>
-                                    <constraint firstItem="qO3-Tt-ofz" firstAttribute="centerX" secondItem="p41-8a-wri" secondAttribute="centerX" id="rfA-Ef-F4B"/>
                                 </constraints>
                             </view>
                         </subviews>
