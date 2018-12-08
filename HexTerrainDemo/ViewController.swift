@@ -24,7 +24,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		// Configures our SceneKit scene
 		sceneView.delegate = self
 		sceneView.showsStatistics = true
-		sceneView.debugOptions = [.showFeaturePoints, .showWorldOrigin, .showLightExtents, .showLightInfluences]
+//		sceneView.debugOptions = [.showFeaturePoints, .showWorldOrigin, .showLightExtents, .showLightInfluences]
 		sceneView.automaticallyUpdatesLighting = false // Disable default lighting from SceneKit
 	}
 
@@ -108,7 +108,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let spotlight = SCNLight()
 		spotlight.type = .spot
 		spotlight.spotInnerAngle = 45
-		spotlight.spotOuterAngle = 45
+		spotlight.spotOuterAngle = 160
 
 		// Create light node and position it
 		// @TODO: Fix when map is centered
@@ -138,7 +138,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //		self.meepleNode = SCNNode(geometry: meeepleGeometry)
 
 		// Finally, add everything to the scene
-//		node.addChildNode(textNode)
+		node.addChildNode(textNode)
 		node.addChildNode(planeGeometryNode)
 		node.addChildNode(terrainNode)
 		node.addChildNode(lightNode)

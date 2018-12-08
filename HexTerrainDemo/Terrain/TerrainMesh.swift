@@ -9,6 +9,13 @@
 import Foundation
 import SceneKit
 
+
+func - (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+	return SCNVector3Make(left.x - right.x, left.y - right.y, left.z - right.z)
+}
+
+
+
 class TerrainMesh {
 
 	// Mesh data for all terrain
@@ -16,6 +23,7 @@ class TerrainMesh {
 	var geometry: SCNGeometry?
 	let mapSizeX = 8
 	let mapSizeY = 8
+	
 
 	init(fromTerrain terrain: Terrain) {
 		self.terrain = terrain
@@ -65,7 +73,15 @@ class TerrainMesh {
 		// This lets us stopwatch our vertex generation time for... reasons.
 		let startTime = CFAbsoluteTimeGetCurrent()
 
-		// Iterate over all tiles on the map
+		let bottomLeft = Offset(x: 0, y: 0).toCartesian()
+		let topRight = Offset(x: mapSizeX - 1, y: mapSizeY - 1).toCartesian()
+
+		let mapWidth = topRight.x - bottomLeft.x
+		let mapHeight = topRight.y -  bottomLeft.y
+
+		let vertexOffset = SCNVector3(mapWidth / 2.0, 0.0, mapHeight / 2.0)
+
+		// Iterate over all vertices and offset them by the correct amount
 		for x in 0..<mapSizeX {
 			for z in 0..<mapSizeY {
 
@@ -79,6 +95,8 @@ class TerrainMesh {
 				vertexData.append(contentsOf: generateVertices(centerX: x, centerZ: z, withHexHeight: 0.5))
 			}
 		}
+
+		vertexData = vertexData.map{ $0 - vertexOffset }
 
 		// Finish stopwatch
 		let endTime = CFAbsoluteTimeGetCurrent()
